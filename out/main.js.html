@@ -1,4 +1,32 @@
-class TransactionAnalyzer {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class TransactionAnalyzer {
   /**
    * Конструктор класса
    * @param {string} fileUrl - URL файла, из которого будут загружены транзакции
@@ -9,7 +37,7 @@ class TransactionAnalyzer {
 
   /**
    * Асинхронно получает транзакции из файла JSON
-   * @returns {Promise<Array>} - Промис, возвращающий массив транзакций
+   * @returns {Promise&lt;Array>} - Промис, возвращающий массив транзакций
    */
   async fetchTransactions() {
     return fetch(this.fileUrl)
@@ -28,7 +56,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно получает все транзакции
    * @async
-   * @returns {Promise<array>} - Промис который возвращает массив транзакций
+   * @returns {Promise&lt;array>} - Промис который возвращает массив транзакций
    */
   async getAllTransactions() {
     console.log("Here are all transactions:");
@@ -41,7 +69,7 @@ class TransactionAnalyzer {
    * Асинхронно добавляет транзакцию в массив транзакций
    * @async
    * @param {Object} transaction - В параметре у нас транзакция для добавления
-   * @returns {Promise<array>} - Возвращает промис который содержит массив транзакций.
+   * @returns {Promise&lt;array>} - Возвращает промис который содержит массив транзакций.
    */
   async addNewTransaction(transaction) {
     this.fetchTransactions().then((transactions) => {
@@ -55,7 +83,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно получает массив с уникальными типами транзакций.
    * @async
-   * @returns {Promise<Array<string>>} - Промис с массивом уникальных типов транзакций.
+   * @returns {Promise&lt;Array&lt;string>>} - Промис с массивом уникальных типов транзакций.
    */
   async getUniqueTransactionType() {
     const uniqueTypeSet = new Set();
@@ -71,7 +99,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно вычисляет сумму всех транзакций.
    * @async
-   * @returns {Promise<number>} - Промис с суммой всех транзакций.
+   * @returns {Promise&lt;number>} - Промис с суммой всех транзакций.
    */
   async calculateTotalAmount() {
     let sum = 0;
@@ -89,7 +117,7 @@ class TransactionAnalyzer {
    * @param {number} year
    * @param {number} month
    * @param {number} day
-   * @returns {Promise<number>} - Возвращает промис с суммой транзакций учитывая специфические заданные аргументы
+   * @returns {Promise&lt;number>} - Возвращает промис с суммой транзакций учитывая специфические заданные аргументы
    */
   async calculateTotalAmountByDate(year, month, day) {
     let sumByDate = 0;
@@ -97,8 +125,8 @@ class TransactionAnalyzer {
       transaction.forEach((transaction) => {
         const transactionDate = new Date(transaction.transaction_date);
         if (
-          (!year || transactionDate.getFullYear() === year) &&
-          (!month || transactionDate.getMonth() + 1 === month) &&
+          (!year || transactionDate.getFullYear() === year) &amp;&amp;
+          (!month || transactionDate.getMonth() + 1 === month) &amp;&amp;
           (!day || transactionDate.getDay() === day)
         ) {
           sumByDate += transaction.transaction_amount;
@@ -112,7 +140,7 @@ class TransactionAnalyzer {
    * Асинхронно возвращает массив с транзакциями определенного типа который задает юзеры
    * @async
    * @param {string} type
-   * @returns {Promise<array>} - Возвращает промис транзакций определенного типа
+   * @returns {Promise&lt;array>} - Возвращает промис транзакций определенного типа
    */
   async getTransactionByType(type) {
     this.fetchTransactions().then((transactions) => {
@@ -129,15 +157,15 @@ class TransactionAnalyzer {
    * @async
    * @param {string} startDate
    * @param {string} endDate
-   * @returns {Promise<array>} - Возвращает промис с транзакциями в диапазоне
+   * @returns {Promise&lt;array>} - Возвращает промис с транзакциями в диапазоне
    */
   async getTransactionsInDateRange(startDate, endDate) {
     this.fetchTransactions().then((transactions) => {
       const filteredTransactions = transactions.filter((transaction) => {
         const transactionDate = new Date(transaction.transaction_date);
         return (
-          transactionDate >= new Date(startDate) &&
-          transactionDate <= new Date(endDate)
+          transactionDate >= new Date(startDate) &amp;&amp;
+          transactionDate &lt;= new Date(endDate)
         );
       });
       console.log(
@@ -151,7 +179,7 @@ class TransactionAnalyzer {
    * Асинхнронно находит транзакцию с указанными именем мерчанта
    * @async
    * @param {string} merchantName
-   * @returns {Promise<array>} - Возвращает промис с указанным именем мерчанта
+   * @returns {Promise&lt;array>} - Возвращает промис с указанным именем мерчанта
    */
   async getTransactionsByMerchant(merchantName) {
     this.fetchTransactions().then((transactions) => {
@@ -166,7 +194,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно считает средний аммаунт транзакции
    * @async
-   * @returns {Pormise<num>} - Возвращает промис с аверейдж суммой транзакций
+   * @returns {Pormise&lt;num>} - Возвращает промис с аверейдж суммой транзакций
    */
   async calculateAverageTransactionAmount() {
     let sum = 0;
@@ -188,14 +216,14 @@ class TransactionAnalyzer {
    * @async
    * @param {number}} minAmount
    * @param {number} maxAmount
-   * @returns {Promise<array>} - Возвращает промис с транзакциями в указанной рендже
+   * @returns {Promise&lt;array>} - Возвращает промис с транзакциями в указанной рендже
    */
   async getTransactionsByAmountRange(minAmount, maxAmount) {
     this.fetchTransactions().then((transactions) => {
       const filteredTransactions = transactions.filter((transaction) => {
         return (
-          transaction.transaction_amount >= minAmount &&
-          transaction.transaction_amount <= maxAmount
+          transaction.transaction_amount >= minAmount &amp;&amp;
+          transaction.transaction_amount &lt;= maxAmount
         );
       });
 
@@ -209,7 +237,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно считает сумму эмаунтов всех дебетовых транзакций
    * @async
-   * @returns {Promise<number>} - Возвращает промис с суммой эмоунтов транзакций с типом дебит
+   * @returns {Promise&lt;number>} - Возвращает промис с суммой эмоунтов транзакций с типом дебит
    */
   async calculateTotalDebitAmount() {
     let debitSum = 0;
@@ -226,7 +254,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно находит месяц в котором было больше всего транзакций
    * @async
-   * @returs {Pormise<object>} - возвращает промис который содержит в себе месяц с наиболее большим кол-вом транзакций
+   * @returs {Pormise&lt;object>} - возвращает промис который содержит в себе месяц с наиболее большим кол-вом транзакций
    */
   async findMostTransactionsMonth() {
     // Объект, в котором будем хранить количество транзакций для каждого месяца(пытался использовать массив но даже чат
@@ -266,7 +294,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно находит месяц в котором было больше всего дебетовых транзакций
    * @async
-   * @returns {Promise<object>} - Возвращает промис который содержит месяц в котором больше всего транзакций
+   * @returns {Promise&lt;object>} - Возвращает промис который содержит месяц в котором больше всего транзакций
    */
   async findMostDebitTransactionMonth() {
     // Объект, в котором будем хранить количество дебетовых транзакций для каждого месяца
@@ -306,7 +334,7 @@ class TransactionAnalyzer {
    * Асинхронно определяет, какой тип транзакции (дебетовая или кредитная) встречается чаще всего.
    * Печатает результат в консоль.
    * @async
-   * @returns {Promise<void>} - Промис, который успешно разрешается, когда анализ завершен.
+   * @returns {Promise&lt;void>} - Промис, который успешно разрешается, когда анализ завершен.
    */
   async mostTransactionTypes() {
     let debitCounter = 0;
@@ -321,7 +349,7 @@ class TransactionAnalyzer {
       });
       if (debitCounter > creditCounter) {
         console.log("Дебетовых транзакций больше всего");
-      } else if (debitCounter < creditCounter) {
+      } else if (debitCounter &lt; creditCounter) {
         console.log("Кредитных транзакций больше всего");
       } else {
         console.log("Дебетовых и кредитных транзакций одинаковое количество");
@@ -334,14 +362,14 @@ class TransactionAnalyzer {
    * Асинхронно находит транзакци до определнной даты
    * @async
    * @param {string} dateString
-   * @returns {Promise<array>} - Возвращает промис с транзакциями до даты
+   * @returns {Promise&lt;array>} - Возвращает промис с транзакциями до даты
    */
   async getTransactionsBeforeDate(dateString) {
     const date = new Date(dateString); // Преобразуем строку даты в объект Date
     this.fetchTransactions().then((transactions) => {
       const filteredTransactions = transactions.filter((transaction) => {
         const transactionDate = new Date(transaction.transaction_date);
-        return transactionDate <= date;
+        return transactionDate &lt;= date;
       });
       console.log(filteredTransactions, "Транзакции до указанной даты");
       return filteredTransactions;
@@ -351,7 +379,7 @@ class TransactionAnalyzer {
    * Асинхронно находит транзакцию с определенным айди
    * @async
    * @param {string} id
-   * @returns {Promise<array>} -  Возвращает промис с транзакцией с указанным айди
+   * @returns {Promise&lt;array>} -  Возвращает промис с транзакцией с указанным айди
    */
   async findTransactionById(id) {
     this.fetchTransactions().then((transactions) => {
@@ -371,7 +399,7 @@ class TransactionAnalyzer {
   /**
    * Асинхронно создает массив со всеми описаниями
    * @async
-   * @returns {Promise<array>} - Возвращает массив с описаниями
+   * @returns {Promise&lt;array>} - Возвращает массив с описаниями
    */
   async mapTransactionDescriptions() {
     this.fetchTransactions().then((transactions) => {
@@ -409,3 +437,26 @@ transactionAnalyzer.getTransactionsBeforeDate("2019-02-01");
 //Важно задавать аргумент именно в таком представление
 transactionAnalyzer.findTransactionById("13");
 transactionAnalyzer.mapTransactionDescriptions();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TransactionAnalyzer.html">TransactionAnalyzer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 11 2024 00:58:19 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
